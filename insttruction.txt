@@ -1,0 +1,7 @@
+For Madhuri Maam
+Maam databases are locally hosted and the authentication part works to, it works with my gmail id
+You can see the look and feel of the website in thi git repo
+Node modules are not included here but you can run them from npm initial
+For further query you can refer to us
+
+Thank you Maam
