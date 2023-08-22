@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="style/loginPage.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Bhasha Bridge</h1>
+    </header>
+    <nav>
+      <ul>
+        <li><a class="active" href="/">Home</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/about.html">About Us</a></li>
+      </ul>
+    </nav>
+    <div class="wrapper">
+      <div class="card-switch">
+        <label class="switch">
+          <input type="checkbox" class="toggle" />
+          <span class="slider"></span>
+          <span class="card-side"></span>
+          <div class="flip-card__inner">
+            <div class="flip-card__front">
+              <div class="title">Log in</div>
+              <div class="flip-card__form" action="">
+                <input
+                  class="flip-card__input"
+                  name="emailz"
+                  placeholder="Email"
+                  type="email"
+                  id="email"
+                />
+                <input
+                  class="flip-card__input"
+                  name="passwordz"
+                  placeholder="Password"
+                  type="password"
+                  id="password"
+                />
+                <button class="flip-card__btn" id="login">Let`s go!</button>
+              </div>
+            </div>
+            <div class="flip-card__back">
+              <div class="title">Sign up</div>
+              <div class="flip-card__form" action="">
+                <input
+                  class="flip-card__input"
+                  placeholder="UserName"
+                  type="username"
+                  id="usernameu"
+                />
+                <input
+                  class="flip-card__input"
+                  name="email"
+                  placeholder="Email"
+                  type="email"
+                  id="emailu"
+                />
+                <input
+                  class="flip-card__input"
+                  name="password"
+                  placeholder="Password"
+                  type="password"
+                  id="passwordu"
+                />
+                <button class="flip-card__btn" id="signUp">Confirm!</button>
+              </div>
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+  </body>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import {
+      getDatabase,
+      set,
+      ref,
+      update,
+    } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyD6tq_dfUB8lKL3DsKoMnn39n9ejteviaE",
+      authDomain: "translator-cee81.firebaseapp.com",
+      databaseURL: "https://translator-cee81-default-rtdb.firebaseio.com",
+      projectId: "translator-cee81",
+      storageBucket: "translator-cee81.appspot.com",
+      messagingSenderId: "564453555775",
+      appId: "1:564453555775:web:76d4f06b54913d7bd5828a",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+    signUp.addEventListener("click", (e) => {
+      var email = document.getElementById("emailu").value;
+      var password = document.getElementById("passwordu").value;
+      var username = document.getElementById("usernameu").value;
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+
+          set(ref(database, "users/" + user.uid), {
+            username: username,
+            email: email,
+          });
+          alert("user created ");
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          alert(errorMessage);
+          // ..
+        });
+    });
+
+    login.addEventListener("click", (e) => {
+      var emaill = document.getElementById("email").value;
+      var passwordl = document.getElementById("password").value;
+
+      signInWithEmailAndPassword(auth, emaill, passwordl)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+
+          const dt = new Date();
+          update(ref(database, "users/" + user.uid), {
+            last_login: dt,
+          });
+          alert("You are logged in");
+          window.location.href = "index.html";
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          alert(errorMessage);
+        });
+    });
+
+const user=auth.currentUser;
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/auth.user
+    const uid = user.uid;
+    // ...
+  } else {
+    // User is signed out
+    // ...
+  }
+});
+  </script>
+</html>

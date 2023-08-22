@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Translator</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/Images/Logo/favicon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/Images/Logo/favicon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/Images/Logo/favicon.png/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style/index.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Bhasha Bridge</h1>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="#Home">Home</a></li>
+        <li><a href="#Contact">Contact</a></li>
+        <li><a href="#About us">About us</a></li>
+        <li><a href="#Username" class="username">Username</a></li>
+        <li><button class="LogoutBtn" id="logout">Logout</button></li>
+      </ul>
+    </nav>
+    <div class="dropdown">
+      <label for="lang"><b>Select Language:</b></label>
+      <select name="lang" id="lang">
+        <option value="" disabled selected>Select</option>
+        <option value="marathi">Marathi</option>
+        <option value="bhojpuri">Bhojpuri</option>
+        <option value="hindi">Hindi</option>
+      </select>
+    </div>
+    <div class="container">
+      <div id="TextBox">
+        <textarea
+          placeholder="Questions Displayed here"
+          rows="3"
+          cols="120"
+        ></textarea>
+        <p>Translate:</p>
+        <textarea rows="3" cols="120" placeholder="Translate here"></textarea>
+        <br />
+        <br />
+        <button class="SubmitBtn">
+          <span>Submit</span>
+          <svg viewBox="0 0 13 10" height="10px" width="15px">
+            <path d="M1,5 L11,5"></path>
+            <polyline points="8 1 12 5 8 9"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="container2">
+      <h3>For Reference</h3>
+      <div class="dict">
+        <iframe id="shabdkosh" src="https://www.shabdkosh.com/"></iframe>
+      </div>
+    </div>
+    <footer>
+      <a href="#">FAQ</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Privacy Policy</a>
+    </footer>
+  </body>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import {
+      getDatabase,
+      set,
+      ref,
+      update,
+    } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+    } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyD6tq_dfUB8lKL3DsKoMnn39n9ejteviaE",
+      authDomain: "translator-cee81.firebaseapp.com",
+      databaseURL: "https://translator-cee81-default-rtdb.firebaseio.com",
+      projectId: "translator-cee81",
+      storageBucket: "translator-cee81.appspot.com",
+      messagingSenderId: "564453555775",
+      appId: "1:564453555775:web:76d4f06b54913d7bd5828a",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+    logout.addEventListener("click", (e) => {
+      signOut(auth)
+        .then(() => {
+          window.location.href = "loginPage.html";
+          // Sign-out successful.
+        })
+        .catch((error) => {
+          // An error happened.
+        });
+    });
+  </script>
+</html>
