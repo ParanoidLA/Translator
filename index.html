@@ -28,7 +28,7 @@
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style/index.css" />
+    <link rel="stylesheet" href="/assets/style/index.css" />
   </head>
   <body>
     <header>
@@ -45,7 +45,7 @@
     </nav>
     <div class="dropdown">
       <label for="lang"><b>Select Language:</b></label>
-      <select name="lang" id="lang">
+      <select name="lang" id="langselected">
         <option value="" disabled selected>Select</option>
         <option value="marathi">Marathi</option>
         <option value="bhojpuri">Bhojpuri</option>
@@ -54,11 +54,8 @@
     </div>
     <div class="container">
       <div id="TextBox">
-        <textarea
-          placeholder="Questions Displayed here"
-          rows="3"
-          cols="120"
-        ></textarea>
+        <div id="questionsDiv"></div>
+
         <p>Translate:</p>
         <textarea rows="3" cols="120" placeholder="Translate here"></textarea>
         <br />
@@ -85,49 +82,5 @@
       <a href="#">Privacy Policy</a>
     </footer>
   </body>
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-    import {
-      getDatabase,
-      set,
-      ref,
-      update,
-    } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
-    import {
-      getAuth,
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      onAuthStateChanged,
-    } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
 
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyD6tq_dfUB8lKL3DsKoMnn39n9ejteviaE",
-      authDomain: "translator-cee81.firebaseapp.com",
-      databaseURL: "https://translator-cee81-default-rtdb.firebaseio.com",
-      projectId: "translator-cee81",
-      storageBucket: "translator-cee81.appspot.com",
-      messagingSenderId: "564453555775",
-      appId: "1:564453555775:web:76d4f06b54913d7bd5828a",
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-    const auth = getAuth();
-
-    logout.addEventListener("click", (e) => {
-      signOut(auth)
-        .then(() => {
-          window.location.href = "loginPage.html";
-          // Sign-out successful.
-        })
-        .catch((error) => {
-          // An error happened.
-        });
-    });
-  </script>
 </html>
