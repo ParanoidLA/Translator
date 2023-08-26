@@ -67,7 +67,47 @@ app.get("/contact", (req, res) => {
   res.status(200).send(contact);
 });
 
+// Define a schema for your collection
+const translatedSchema = new mongoose.Schema({
 
+  Senteces: String,
+  Hindi: String,
+  Marathi: String,
+  Bhojprui: String,
+  inHindi: Boolean,
+  inMarathi: Boolean,
+  inBhojpuri: Boolean,
+  hindiUser: mongoose.SchemaTypes.ObjectId,
+  marathiUser: mongoose.SchemaTypes.ObjectId,
+  bhojpuriUser: mongoose.SchemaTypes.ObjectId
+});
+
+
+
+// Provide the explicit collection name "Translated" when creating the model
+const Translated = mongoose.model('Translated', translatedSchema, 'Translated');
+async function accessTranslatedCollection() {
+  try {
+    const translatedSentences = await Translated.find(); // Retrieve all documents from the "Translated" collection
+    console.log(translatedSentences);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+accessTranslatedCollection();
+
+
+module.exports = Translated;
+app.get('/sentences', async (req, res) => {
+  try {
+    const sentences = await Translated.find({}, 'Senteces');
+    res.json(sentences); // Send the sentences as JSON
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 //Server hosting
 
 app.listen(port,()=>{

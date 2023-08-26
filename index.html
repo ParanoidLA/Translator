@@ -67,6 +67,7 @@
             <polyline points="8 1 12 5 8 9"></polyline>
           </svg>
         </button>
+        <button id="skipButton">Skip</button>
       </div>
     </div>
 
@@ -81,6 +82,25 @@
       <a href="#">Terms of Use</a>
       <a href="#">Privacy Policy</a>
     </footer>
-  </body>
+    <script>
+      const questionsDiv = document.getElementById("questionsDiv");
 
+      async function fetchSentences() {
+        try {
+          const response = await fetch("/sentences");
+          const sentences = await response.json();
+
+          sentences.forEach((sentence) => {
+            const sentenceElement = document.createElement("p");
+            sentenceElement.textContent = sentence.Senteces;
+            questionsDiv.appendChild(sentenceElement);
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      fetchSentences();
+    </script>
+  </body>
 </html>
